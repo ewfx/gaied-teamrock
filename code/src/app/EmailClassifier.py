@@ -17,7 +17,7 @@ from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 
 # 🔹 Hugging Face API Details
 HUGGINGFACE_API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1"
-HUGGINGFACE_API_TOKEN = "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"  # 🔹 Replace with your token
+HUGGINGFACE_API_TOKEN = "token"  # 🔹 Replace with your token
 
 # 🔹 Function to Call Hugging Face API for Email Intent Classification
 def classify_email_with_huggingface(text):

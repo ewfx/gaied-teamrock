@@ -17,7 +17,7 @@ from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 
 # 🔹 Hugging Face API Details
 HUGGINGFACE_API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1"
-HUGGINGFACE_API_TOKEN = "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"  # 🔹 Replace with your token
+HUGGINGFACE_API_TOKEN = "token"  # 🔹 Replace with your token
 
 # 🔹 Function to Clean and Parse JSON from Model Response
 def clean_and_parse_json(response_text):
