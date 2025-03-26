@@ -1,0 +1,267 @@
+Delivered-To: surabathula.naveena@gmail.com
+Received: by 2002:a05:6000:1e45:b0:391:2e58:f08b with SMTP id hg5csp2106445wrb;
+        Mon, 24 Mar 2025 09:49:54 -0700 (PDT)
+X-Received: by 2002:a05:6102:1944:b0:4c5:1c0b:4ee9 with SMTP id ada2fe7eead31-4c51c0bb1c5mr5188396137.22.1742834993375;
+        Mon, 24 Mar 2025 09:49:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1742834993; cv=none;
+        d=google.com; s=arc-20240605;
+        b=FZ20GQfn7DwfBUx9x40+vwNyoN6Y4NufRCfNuj199hGINa1XLB5Saf+fMkUtiNAZ1v
+         OVGZZcxZy8Zfj2mG8BQ2MZbSTK1dMehNyhahPhUhwXx5Kf3DT5rLHoBCRO2wSe2vRbPg
+         X8HhOx1fHObwHqFZ3jEIRLleM7j6hE7fd3in2c8zCzAAPObqhNIPDky+NRixTjfcTtuV
+         JjbRE0H8Xy0Hw9dewvgDb4AVN5rs9oJBLcjnZW3Z/woTwd28zHnFFYXmaHbMSVM5hvni
+         dBv52HObttXOAUYEsT6LmYE0lntCscJ054Sb7yvgVQCaRBsP1cqNlNNn5kmaIZWrMMyL
+         CbZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :dkim-signature;
+        bh=NhAhBu4XC0t5jxPPACv4PiFPwX0t4B1K5mSqVM2wswE=;
+        fh=qMK/L/ymwM0NPw4/CkaimQ9IaZvQayXWI3zQG900ICw=;
+        b=KsrCWuYR7nWhBQLdsyX4ElRBxMja1SUm4Oic9hjoUpGDolS3Xkrr0U6OULU03d6PA2
+         c6nBX23PyOMYoINNOgRwnBnXy4twlFX0N4UruxPfSSvgvITlO8E5jX9UwDMwBRtXyeYN
+         Tf9oGl46Veq+B+8bRhi1trZbj3x7fTHH6Z2QTvwBwPSv3czYPpZolXIOcehtq5m3BIaL
+         K7JtXEtJOcnAZIV/46sdKL7chFE0lP401bY9P53dV6uuS+aMe7LVJkrBD0vn1z9Z4D/Y
+         iGKlzQUvaR6/6PvQVQjDaJJtwDp8VJJ5wut5c8/ss7biJoe/rC2vOj3Mc16+pmSrFCwz
+         Ts7w==;
+        dara=google.com
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20230601 header.b=BVy9YYLL;
+       spf=pass (google.com: domain of technoskills914@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=technoskills914@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;
+       dara=pass header.i=@gmail.com
+Return-Path: <technoskills914@gmail.com>
+Received: from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41])
+        by mx.google.com with SMTPS id ada2fe7eead31-4c50bd4630dsor658157137.7.2025.03.24.09.49.53
+        for <surabathula.naveena@gmail.com>
+        (Google Transport Security);
+        Mon, 24 Mar 2025 09:49:53 -0700 (PDT)
+Received-SPF: pass (google.com: domain of technoskills914@gmail.com designates 209.85.220.41 as permitted sender) client-ip=209.85.220.41;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@gmail.com header.s=20230601 header.b=BVy9YYLL;
+       spf=pass (google.com: domain of technoskills914@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=technoskills914@gmail.com;
+       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;
+       dara=pass header.i=@gmail.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1742834993; x=1743439793; dara=google.com;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=NhAhBu4XC0t5jxPPACv4PiFPwX0t4B1K5mSqVM2wswE=;
+        b=BVy9YYLLKJUFBFTBo8aDjj37Ly+oYpTJ8h6TczL+arYOQgYadzNaxdB1YkMaY385s6
+         soslDYP+p8+E1XlmQ8q1LmGsIMKixvdW8wK3I9CQ2il5qEZ1yaOz1TwqD1ODR9zdwnVS
+         /TAazDtEyHUhy84OZRHwBJvGcefyJiG8o+06ktzPVYi0W2PJjhZt6MNGtF748nbSufcB
+         OFhsjHJMPSCa2tB7S9I0ReZQhaaxD0KlWy8P+Dnc3ESC+FCgYWsqVXf8MoCohxE36yNl
+         Az5ofYr4JoTJ2rXwoPRIM3IhojpB1JJs88uOMEmxr4Ft9wT9VnsQkCt0HhNYyVf6m6uh
+         sUiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1742834993; x=1743439793;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=NhAhBu4XC0t5jxPPACv4PiFPwX0t4B1K5mSqVM2wswE=;
+        b=bnayUrvedcv4KGiJwAFANe7rdyxFHnrbDAvmxzWUBbW6/tEVdgLe/EXgTy9ipyyz6+
+         xSBpj0qMt4q8mFCd9qk69C7Wx2jgM5wDtMj8evP4dZgwEXqlv9oO5B9KN5HZcMbEpy7+
+         n/R/VU1M1evedAaVKkqvBexrJfw2o84xBL0mVS5gv46YX6jpVPONNEXdVAGBJGfVhOdI
+         8TH9glsrDlSwOgFX7lHNUjB7JNj7l5ewYPtjs/TOb2uLT5WjPyoqtKCZaMDRlYWw4bxt
+         ChnErrJGJ8nJKoImK+1o3ws71OGAptUfcS0dsMbZuvBHJ3GFBDnfRi6aF3qjeUH12yMw
+         aU+Q==
+X-Gm-Message-State: AOJu0YwKg/ih+LUJZfBBgl+G/Xbq05NKX+SIOf+u9wDmvh5SvM/EWZ+D
+	JaD05UdGlL3krkV7pHLipfWL4PaIJN5gFPqKvJ6O+/MQjUnuDtwa8N6wwoWG9cna5YjXCCUJjqx
+	LMKxJ3St8IPx+lc4Q9Kk8RfIB9xKDLaKM
+X-Gm-Gg: ASbGnctS2fT0stFP27CHr0cLTYtcyGXeje9nxnqVEar64bMcB7lFNGjPmlI6dcFa4gy
+	f0vySf2UluJfG0DMvwBthZD8iPBR7A/Ot57WBi+SE6K9ejAaBm3sNrMUq35n+mvffPnSPXP77t7
+	4OcZNuHbeoLWXg/CYleGIuVephtkDAV8GfwvbQCxej2g1Au4MK6fgarQCi
+X-Google-Smtp-Source: AGHT+IHSy+FCFmKIQG8Gh/GICwtH2sm12BJihpax1AwC6d8p25bJbFm2ghpFGcddEL9MLRWJ08bSSxwza8HAGZh3J5E=
+X-Received: by 2002:a05:6102:6cf:b0:4c1:86bc:f959 with SMTP id
+ ada2fe7eead31-4c50d4bc997mr7775195137.8.1742834992233; Mon, 24 Mar 2025
+ 09:49:52 -0700 (PDT)
+MIME-Version: 1.0
+References: <CACgX1zpLAF4T-ex3S1LO48_6+6XffAvwU9x4++WBoByV+17fYQ@mail.gmail.com>
+ <CAMmEsOJ6_yh7htar=_Q+K_Wx03tzPAm3hw8423b8oue6_f=vjg@mail.gmail.com>
+In-Reply-To: <CAMmEsOJ6_yh7htar=_Q+K_Wx03tzPAm3hw8423b8oue6_f=vjg@mail.gmail.com>
+From: Techno <technoskills914@gmail.com>
+Date: Mon, 24 Mar 2025 22:19:39 +0530
+X-Gm-Features: AQ5f1JpACyUQM7TSZ4EgMPRTRItRJ6_7Yx3xOtmDgvrw30ud5T_OjaKnECSbu4c
+Message-ID: <CAMmEsO+GCai5phJm8zAdZwst5tyq7x-cLDtMsV7NvM_rhCxSGQ@mail.gmail.com>
+Subject: Re: Part Payment Not Reflecting in Loan Account
+To: Naveena surabathula <surabathula.naveena@gmail.com>
+Content-Type: multipart/mixed; boundary="0000000000009d64b2063119645b"
+
+--0000000000009d64b2063119645b
+Content-Type: multipart/alternative; boundary="0000000000009d64af0631196459"
+
+--0000000000009d64af0631196459
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Dear John,
+
+
+Thank you for reaching out to *PDFC LTD Customer Support*. We understand
+your concern regarding the missing part payment in your loan account
+*83256XXX*.
+
+To assist you further, kindly share the *transaction number* or any payment
+reference details so that we can verify and update your loan statement
+accordingly.
+
+Meanwhile, for your reference, we have attached the latest loan statement,
+showing your current loan balance and payment details.
+
+For further assistance, please feel free to contact us at *support@pdfcltd.=
+com
+<support@pdfcltd.com>* or call *+91-XXX-XXX-XXXX*.
+
+
+Best regards,
+*Customer Support Team*
+*PDFC LTD*
+
+
+
+On Mon, Mar 24, 2025 at 10:17=E2=80=AFPM Techno <technoskills914@gmail.com>=
+ wrote:
+
+> Dear John,
+>
+>
+> Thank you for reaching out to *PDFC LTD Customer Support*. We understand
+> your concern regarding the missing part payment in your loan account
+> *83256XXX*.
+>
+> To assist you further, kindly share the *transaction number* or any
+> payment reference details so that we can verify and update your loan
+> statement accordingly.
+>
+> Meanwhile, for your reference, we have attached the latest loan statement=
+,
+> showing your current loan balance and payment details.
+>
+> For further assistance, please feel free to contact us at *support@pdfclt=
+d.com
+> <support@pdfcltd.com>* or call *+91-XXX-XXX-XXXX*.
+>
+>
+>
+> Best regards,
+> *Customer Support Team*
+> *PDFC LTD*
+>
+>
+>
+> On Mon, Mar 24, 2025 at 10:16=E2=80=AFPM Naveena surabathula <
+> surabathula.naveena@gmail.com> wrote:
+>
+>> Dear PDFC LTD Customer Support,
+>>
+>>
+>> I recently made a part payment towards my loan account *83256XXX*, but
+>> it is not reflected in my account statement. I request you to verify and
+>> update my statement accordingly.
+>>
+>> Please assist me in resolving this issue at the earliest. Looking forwar=
+d
+>> to your prompt response.
+>>
+>>
+>> Best regards,
+>> John
+>>
+>
+
+--0000000000009d64af0631196459
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><p class=3D"MsoNormal">Dear John,<u></u><u></u></p><p clas=
+s=3D"MsoNormal"><br></p><p class=3D"MsoNormal">Thank you for reaching out t=
+o=C2=A0<b>PDFC LTD Customer Support</b>. We understand your concern regardi=
+ng the missing part payment in your loan account=C2=A0<b>83256XXX</b>.<u></=
+u><u></u></p><p class=3D"MsoNormal">To assist you further, kindly share the=
+=C2=A0<b>transaction number</b>=C2=A0or any payment reference details so th=
+at we can verify and update your loan statement accordingly.<u></u><u></u><=
+/p><p class=3D"MsoNormal">Meanwhile, for your reference, we have attached t=
+he latest loan statement, showing your current loan balance and payment det=
+ails.<u></u><u></u></p><p class=3D"MsoNormal">For further assistance, pleas=
+e feel free to contact us at=C2=A0<b><a href=3D"mailto:support@pdfcltd.com"=
+ target=3D"_blank">support@pdfcltd.com</a></b>=C2=A0or call=C2=A0<b>+91-XXX=
+-XXX-XXXX</b>.<u></u><u></u></p><p class=3D"MsoNormal"><br></p><p class=3D"=
+MsoNormal">Best regards,<br><b>Customer Support Team</b><br><b>PDFC LTD</b>=
+<u></u><u></u></p><p class=3D"MsoNormal"><u></u>=C2=A0</p></div><br><div cl=
+ass=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" class=3D"gmail_a=
+ttr">On Mon, Mar 24, 2025 at 10:17=E2=80=AFPM Techno &lt;<a href=3D"mailto:=
+technoskills914@gmail.com">technoskills914@gmail.com</a>&gt; wrote:<br></di=
+v><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;borde=
+r-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr"><p cla=
+ss=3D"MsoNormal">Dear John,<u></u><u></u></p><p class=3D"MsoNormal"><br></p=
+><p class=3D"MsoNormal">Thank you for reaching out to=C2=A0<b>PDFC LTD Cust=
+omer Support</b>. We understand your concern regarding the missing part pay=
+ment in your loan account=C2=A0<b>83256XXX</b>.<u></u><u></u></p><p class=
+=3D"MsoNormal">To assist you further, kindly share the=C2=A0<b>transaction =
+number</b>=C2=A0or any payment reference details so that we can verify and =
+update your loan statement accordingly.<u></u><u></u></p><p class=3D"MsoNor=
+mal">Meanwhile, for your reference, we have attached the latest loan statem=
+ent, showing your current loan balance and payment details.<u></u><u></u></=
+p><p class=3D"MsoNormal">For further assistance, please feel free to contac=
+t us at=C2=A0<b><a href=3D"mailto:support@pdfcltd.com" target=3D"_blank">su=
+pport@pdfcltd.com</a></b>=C2=A0or call=C2=A0<b>+91-XXX-XXX-XXXX</b>.<u></u>=
+<u></u></p><p class=3D"MsoNormal"><br></p><p class=3D"MsoNormal"><br></p><p=
+ class=3D"MsoNormal">Best regards,<br><b>Customer Support Team</b><br><b>PD=
+FC LTD</b><u></u><u></u></p><p class=3D"MsoNormal"><u></u>=C2=A0</p></div><=
+br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Mon,=
+ Mar 24, 2025 at 10:16=E2=80=AFPM Naveena surabathula &lt;<a href=3D"mailto=
+:surabathula.naveena@gmail.com" target=3D"_blank">surabathula.naveena@gmail=
+.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"mar=
+gin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1=
+ex"><div dir=3D"ltr"><p class=3D"MsoNormal">Dear PDFC LTD Customer Support,=
+<u></u><u></u></p><p class=3D"MsoNormal"><br></p><p class=3D"MsoNormal">I r=
+ecently made a part payment towards my loan account=C2=A0<b>83256XXX</b>, b=
+ut it is not reflected in my account statement. I request you to verify and=
+ update my statement accordingly.<u></u><u></u></p><p class=3D"MsoNormal">P=
+lease assist me in resolving this issue at the earliest. Looking forward to=
+ your prompt response.<u></u><u></u></p><p class=3D"MsoNormal"><br></p><p c=
+lass=3D"MsoNormal">Best regards,<br>John</p></div>
+</blockquote></div>
+</blockquote></div>
+
+--0000000000009d64af0631196459--
+--0000000000009d64b2063119645b
+Content-Type: application/pdf; name="Loan_Statement_83256XXX.PDF"
+Content-Disposition: attachment; filename="Loan_Statement_83256XXX.PDF"
+Content-Transfer-Encoding: base64
+Content-ID: <f_m8naxrj30>
+X-Attachment-Id: f_m8naxrj30
+
+JVBERi0xLjMKMyAwIG9iago8PC9UeXBlIC9QYWdlCi9QYXJlbnQgMSAwIFIKL1Jlc291cmNlcyAy
+IDAgUgovQ29udGVudHMgNCAwIFI+PgplbmRvYmoKNCAwIG9iago8PC9GaWx0ZXIgL0ZsYXRlRGVj
+b2RlIC9MZW5ndGggOTUyPj4Kc3RyZWFtCnicfZZNb9s4EIbv/RU8tsCGy++P3tK6ARqkaYC4QBbo
+RXG0Wy8SKVDkXeTfdySLIW2O52SYJh+NH45eUrHLd4Jbz/5/92nN/ryQTCouBFv/zb6s90OKSXcw
+pITl0jAfzbRw/cDe36wuPrOr9Yqdsau+6djt2IztU9uNH9j63xJ0yNaSy8i8jlzsOfPi882m33Vj
+hrCf76+al5FdbLum22ybR/ZX2ww/PxzAq8L3cBcdt7aGX++e7tvhY4FQ1vPoygVBK+vu7u6KSQvU
+Ba7kPOfz7mXsn9qBXTdPLYbLUy/7Xx1b9W2NAwHB5RrXr88oKk+7aYeXvgMR0/yaJyW3qbxhaLvN
+K4bLs37criqIDZrL/a7kjYDnbvsHBFbMPn8eto9M/gFtojQ0xLdm2PwC6DxgiIZQgWvLrA3cwA9S
+cx3Z2X5waNktgyUephtmjeBuv0UrqCwhpZHcmzfA9E0fA6SFno0l4WbYQk89g8ubZvsArQYycmsp
++F/G00wVI48HzK/d2A4tdCyGNMpyJWik0W4aLZDrfpxLfF1eiAMk8gIsMrXgIpyQaSV3UDas0mJ+
+hpBnsHln074dO104uFPIAWVLkBUwXRw7pBha29lhZsgDRpJGMYz33KuS4Y7qmJWIeS2uxETuBTNQ
+cHRJybfmFVWycCglBchKTAnF0PC6a1UyYkCMUIjFSIFwIlRGjAcVRJNox4y13Mlk5HLXYUYShzSS
+QVYhRkhGMpIZ0dVGSEQykhFOutqIsVPOnDCiZyPKc+WykUfUyMIhjWTQ3N2VEYqRjGQGQGsjFCIZ
+yQinTG0ELEFYnDAiJiMa2jOqtyDZ/YMaWTiUkQI0BWBthGIsRgpGVIgRCrEYKRBOq8qIDvBxskf2
+RrxIFyQwcts+Y0YShzSSQdYiRkhGMpIZEUlWEpGMZIQzdbJqN42Rh402iqu3Hvm+GVEjC4c0kkHW
+YUYoRjKSGQFJVhKRjGSEM3WyarhKwflN9gj8FkIyct3/hxpZOKSRDLIeM0IxkpHMCEiykohkJCOc
+rZNVCz0dzpQRFSy3OhlZtRvUyMKhjBQgGzAjFGMxUjACkqwkYjFSIJyrk1V5Mx3O1Ok73bHlW49c
+NvPpa46MJA5pJINsRIyQjGQkMwKSrCQiGckI5+tkVcZNh/PJHoEcUTAYTDJy0d6jRhYOaSSDji+L
+eyMUIxnJjIAkK4lIRooyQp2sSobpcD5pBO6sCqo3Md9ZB9TIwiGNZJDD7qwkIxnJDI8kK4lIRooy
+DtL5N+HFmsAKZW5kc3RyZWFtCmVuZG9iagoxIDAgb2JqCjw8L1R5cGUgL1BhZ2VzCi9LaWRzIFsz
+IDAgUiBdCi9Db3VudCAxCi9NZWRpYUJveCBbMCAwIDU5NS4yOCA4NDEuODldCj4+CmVuZG9iago1
+IDAgb2JqCjw8L1R5cGUgL0ZvbnQKL0Jhc2VGb250IC9IZWx2ZXRpY2EKL1N1YnR5cGUgL1R5cGUx
+Ci9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nCj4+CmVuZG9iago2IDAgb2JqCjw8L1R5cGUgL0Zv
+bnQKL0Jhc2VGb250IC9IZWx2ZXRpY2EtQm9sZAovU3VidHlwZSAvVHlwZTEKL0VuY29kaW5nIC9X
+aW5BbnNpRW5jb2RpbmcKPj4KZW5kb2JqCjIgMCBvYmoKPDwKL1Byb2NTZXQgWy9QREYgL1RleHQg
+L0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUldCi9Gb250IDw8Ci9GMSA1IDAgUgovRjIgNiAwIFIKPj4K
+L1hPYmplY3QgPDwKPj4KPj4KZW5kb2JqCjcgMCBvYmoKPDwKL1Byb2R1Y2VyIChQeUZQREYgMS43
+LjIgaHR0cDovL3B5ZnBkZi5nb29nbGVjb2RlLmNvbS8pCi9DcmVhdGlvbkRhdGUgKEQ6MjAyNTAz
+MjQwNzE1NTcpCj4+CmVuZG9iago4IDAgb2JqCjw8Ci9UeXBlIC9DYXRhbG9nCi9QYWdlcyAxIDAg
+UgovT3BlbkFjdGlvbiBbMyAwIFIgL0ZpdEggbnVsbF0KL1BhZ2VMYXlvdXQgL09uZUNvbHVtbgo+
+PgplbmRvYmoKeHJlZgowIDkKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAxMTA5IDAwMDAwIG4g
+CjAwMDAwMDEzOTMgMDAwMDAgbiAKMDAwMDAwMDAwOSAwMDAwMCBuIAowMDAwMDAwMDg3IDAwMDAw
+IG4gCjAwMDAwMDExOTYgMDAwMDAgbiAKMDAwMDAwMTI5MiAwMDAwMCBuIAowMDAwMDAxNTA3IDAw
+MDAwIG4gCjAwMDAwMDE2MTYgMDAwMDAgbiAKdHJhaWxlcgo8PAovU2l6ZSA5Ci9Sb290IDggMCBS
+Ci9JbmZvIDcgMCBSCj4+CnN0YXJ0eHJlZgoxNzE5CiUlRU9GCg==
+--0000000000009d64b2063119645b--
