@@ -14,6 +14,13 @@ from bs4 import BeautifulSoup
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
+from email.utils import parsedate_to_datetime
+import hashlib
+from collections import defaultdict
+from email.utils import parsedate_to_datetime
+import hashlib
+from collections import defaultdict
+import logging
 
 # 🔹 Hugging Face API Details
 HUGGINGFACE_API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1"
@@ -21,11 +28,12 @@ HUGGINGFACE_API_TOKEN = "token"  # 🔹 Replace with your token
 
 # 🔹 Function to Call Hugging Face API for Email Intent Classification
 def classify_email_with_huggingface(text):
-    """Sends email content to Hugging Face API for intent classification."""
+    """Identify email intent and return standardized request type"""
     headers = {
         "Authorization": f"Bearer {HUGGINGFACE_API_TOKEN}",
         "Content-Type": "application/json"
     }
+    
     prompt = f"""
 Please classify the following email content into one of the predefined request
 types: Adjustment, AU Transfer, Closing Notice, Commitment Change, Fee Payment, Money Movement Inbound, Money Movement Outbound.
@@ -36,8 +44,11 @@ Make sure to focus solely on these parameters and avoid including any additional
 parameters in your response.
     """
 
+    
+    
     payload = {"inputs": prompt}
     response = requests.post(HUGGINGFACE_API_URL, json=payload, headers=headers)
+    
 
     if response.status_code == 200:
         try:
@@ -48,17 +59,27 @@ parameters in your response.
                 if input_prompt_end in generated_text:
                     generated_text = generated_text.split(input_prompt_end)[-1].strip()
                 
+                # Extract intent
                 intent_match = re.search(r'(Intent|Intention|Category):\s*([^\n,]+)', generated_text, re.IGNORECASE)
-                intent = intent_match.group(2).strip() if intent_match else "Unknown"
+                raw_intent = intent_match.group(2).strip() if intent_match else "Unknown"
                 
+                # Standardize to match configuration keys
+                standardized_intent = "Unknown"
+                for req_type in st.session_state.request_type_config.keys():
+                    if req_type.lower() in raw_intent.lower():
+                        standardized_intent = req_type
+                        break
+                
+                # Confidence parsing
                 confidence_match = re.search(r'(Confidence):\s*([0-9.%]+|High|Medium|Low)', generated_text, re.IGNORECASE)
                 confidence_text = confidence_match.group(2).strip() if confidence_match else "0.0"
                 
                 if "%" in confidence_text:
                     confidence = float(confidence_text.replace("%", "")) / 100
-                elif confidence_text.lower() in ["high", "medium", "low"]:
+                elif confidence_text.lower() in ["very high","high", "medium", "low"]:
                     confidence_mapping = {
-                        "high": 0.9,
+                        "very high": 0.9,
+                        "high": 0.8,
                         "medium": 0.6,
                         "low": 0.3
                     }
@@ -66,7 +87,7 @@ parameters in your response.
                 else:
                     confidence = float(confidence_text)
                 
-                return intent, confidence
+                return standardized_intent, confidence
             else:
                 st.error("⚠️ API returned unexpected format.")
                 return "Unknown", 0.0

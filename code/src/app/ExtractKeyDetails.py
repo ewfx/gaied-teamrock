@@ -14,6 +14,14 @@ from bs4 import BeautifulSoup
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
+from email.utils import parsedate_to_datetime
+import hashlib
+from collections import defaultdict
+from email.utils import parsedate_to_datetime
+import hashlib
+from collections import defaultdict
+import logging
+
 
 # 🔹 Hugging Face API Details
 HUGGINGFACE_API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1"
@@ -21,38 +29,37 @@ HUGGINGFACE_API_TOKEN = "token"  # 🔹 Replace with your token
 
 # 🔹 Function to Clean and Parse JSON from Model Response
 def clean_and_parse_json(response_text):
-    """Cleans the response text and parses it into a JSON object."""
+    """
+    Cleans the response text and parses it into a JSON object while handling errors gracefully.
+    """
     try:
-        # Remove any leading/trailing whitespace and newlines
         response_text = response_text.strip()
-
-        # Remove triple backticks (```) if present
-        response_text = response_text.replace("```", "")
-
-        # Extract the JSON part using regex
+        response_text = response_text.replace("```", "")  # Remove code block formatting if present
+        
+        # Extract JSON content using regex
         json_match = re.search(r'\{.*\}', response_text, re.DOTALL)
-        if json_match:
-            json_str = json_match.group(0)
-
-            # Fix common JSON formatting issues
-            json_str = json_str.replace("'", '"')  # Replace single quotes with double quotes
-            json_str = json_str.replace("\n", "")  # Remove newlines
-            json_str = re.sub(r'([{,]\s*)(\w+)(\s*:)', r'\1"\2"\3', json_str)  # Add double quotes around keys
-
-            # Remove extra spaces and special characters
-            json_str = re.sub(r'\s+', ' ', json_str)  # Replace multiple spaces with a single space
-            json_str = re.sub(r':\s+', ':', json_str)  # Remove extra spaces after colons
-
-            # Parse the cleaned JSON string
+        if not json_match:
+            logging.error("No valid JSON object found in the response.")
+            return {"error": "No valid JSON detected."}
+        
+        json_str = json_match.group(0)
+        json_str = json_str.replace("'", '"')  # Replace single quotes with double quotes for JSON compatibility
+        json_str = json_str.replace("\n", "")  # Remove unnecessary newlines
+        
+        # Ensure proper JSON formatting
+        try:
             extracted_data = json.loads(json_str)
-            
-            return extracted_data
-        else:
-            st.error("⚠️ No valid JSON object found in the response.")
-            return {}
+        except json.JSONDecodeError:
+            json_str = re.sub(r'([{,]\s*)(\w+)(\s*:)', r'\1"\2"\3', json_str)  # Ensure keys are quoted
+            extracted_data = json.loads(json_str)
+        
+        return extracted_data
     except json.JSONDecodeError as e:
-        st.error(f"⚠️ Failed to parse JSON: {e}")
-        return {}
+        logging.error(f"JSON parsing error: {e}")
+        return {"error": "Failed to parse JSON."}
+    except Exception as e:
+        logging.error(f"Unexpected error: {e}")
+        return {"error": "Unexpected error occurred."}
 
 
 # 🔹 Function to Call Hugging Face API for Structured Data Extraction

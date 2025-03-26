@@ -14,6 +14,13 @@ from bs4 import BeautifulSoup
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
+from email.utils import parsedate_to_datetime
+import hashlib
+from collections import defaultdict
+from email.utils import parsedate_to_datetime
+import hashlib
+from collections import defaultdict
+import logging
 
 
 # 🔹 Function to Extract Text from PDF

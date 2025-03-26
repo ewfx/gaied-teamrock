@@ -17,11 +17,14 @@ from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 from email.utils import parsedate_to_datetime
 import hashlib
 from collections import defaultdict
+from email.utils import parsedate_to_datetime
+import hashlib
+from collections import defaultdict
+import logging
+from EmailClassifier import classify_email_with_huggingface
 from ExtractContent import extract_text_from_pdf, preprocess_text
+from ExtractKeyDetails import extract_structured_data_with_huggingface
 
-# Initialize session state for thread analysis
-if 'thread_analysis' not in st.session_state:
-    st.session_state.thread_analysis = {}
 
 # Enhanced email processing functions
 def normalize_content(text):
@@ -225,7 +228,7 @@ def display_thread_analysis(filename):
                         if any(i in pair for pair in stats['near_duplicates']):
                             st.warning("Near duplicate")
                         if any(i in pair for pair in stats['quoted_duplicates']):
-                            st.info("Quoted content")   
+                            st.info("Quoted content")    
 
 # Main processing function
 def process_files(uploaded_files, selected_fields):
@@ -300,7 +303,7 @@ def detect_duplicates(file_texts, file_names):
                 duplicate_flags[file_names[i]] = True
                 duplicate_flags[file_names[j]] = True
 
-    return duplicate_pairs, duplicate_flags                            
+    return duplicate_pairs, duplicate_flags                      
 
 
 

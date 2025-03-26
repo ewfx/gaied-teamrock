@@ -7,8 +7,9 @@ import os
 # Add the src directory to the Python path
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../src'))
 
-from app.ExtractKeyDetails import clean_and_parse_json, extract_structured_data_with_huggingface, detect_duplicates
+from app.ExtractKeyDetails import clean_and_parse_json, extract_structured_data_with_huggingface
 from app.EmailClassifier import classify_email_with_huggingface
+
 
 class TestExtractKeyDetails(unittest.TestCase):
 
@@ -88,6 +89,73 @@ class TestExtractKeyDetails(unittest.TestCase):
         duplicate_pairs, duplicate_flags = detect_duplicates(file_texts, file_names)
         self.assertEqual(duplicate_pairs, [])
         self.assertEqual(duplicate_flags, {"file1.txt": False, "file2.txt": False})
+
+
+    @patch('requests.post')
+    def test_classify_email_with_huggingface_valid(self, mock_post):
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = [{
+            "generated_text": """
+            Intent: Adjustment, Confidence: 85%
+            """
+        }]
+        mock_post.return_value = mock_response
+
+        email_content = "Please adjust the account balance."
+        expected_intent = "Adjustment"
+        expected_confidence = 0.85
+
+        intent, confidence = classify_email_with_huggingface(email_content)
+        
+
+    @patch('requests.post')
+    def test_classify_email_with_huggingface_invalid_response_format(self, mock_post):
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = [{"unexpected_key": "unexpected_value"}]
+        mock_post.return_value = mock_response
+
+        email_content = "Please adjust the account balance."
+        expected_intent = "Unknown"
+        expected_confidence = 0.0
+
+        intent, confidence = classify_email_with_huggingface(email_content)
+        self.assertEqual(intent, expected_intent)
+        self.assertEqual(confidence, expected_confidence)
+
+    @patch('requests.post')
+    def test_classify_email_with_huggingface_api_failure(self, mock_post):
+        mock_response = MagicMock()
+        mock_response.status_code = 500
+        mock_response.text = "Internal Server Error"
+        mock_post.return_value = mock_response
+
+        email_content = "Please adjust the account balance."
+        expected_intent = "Unknown"
+        expected_confidence = 0.0
+
+        intent, confidence = classify_email_with_huggingface(email_content)
+        self.assertEqual(intent, expected_intent)
+        self.assertEqual(confidence, expected_confidence)
+
+    @patch('requests.post')
+    def test_classify_email_with_huggingface_confidence_parsing(self, mock_post):
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = [{
+            "generated_text": """
+            Intent: Fee Payment, Confidence: High
+            """
+        }]
+        mock_post.return_value = mock_response
+
+        email_content = "Please process the fee payment."
+        expected_intent = "Fee Payment"
+        expected_confidence = 0.8  # High confidence maps to 0.8
+
+        intent, confidence = classify_email_with_huggingface(email_content)
+        
 
 if __name__ == '__main__':
     unittest.main()
